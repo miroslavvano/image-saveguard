@@ -1,11 +1,5 @@
 import {CanvasRenderingContext2D, ImageData} from 'react-native-canvas';
-import {
-  convolve,
-  gaussianBlur,
-  getFloat32Array,
-  luminance,
-  luminanceInPlace,
-} from './filters';
+import {convolve, gaussianBlur, getFloat32Array, luminance} from './filters';
 
 /**
  * I forgot why exactly I was doing this.

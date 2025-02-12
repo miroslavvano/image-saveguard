@@ -94,9 +94,9 @@ export const CanvasExample = ({uri}: {uri: string}) => {
       canvasImage.src = imageBase64;
 
       canvasImage.addEventListener('load', async () => {
-        ctx.drawImage(canvasImage, 0, 0, 300, 300);
+        ctx.drawImage(canvasImage, 0, 0, canvas.width, canvas.height);
         setIsLoadingImage(false);
-        const imageData = ctx.getImageData(0, 0, 300, 300);
+        const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
 
         const result = await isTooDarkOrLight(imageData, 50);
 
@@ -104,8 +104,8 @@ export const CanvasExample = ({uri}: {uri: string}) => {
           const data = await imageData;
           const variance = calculateLaplacianVariance(
             Object.values(data.data),
-            300,
-            300,
+            canvas.width,
+            canvas.height,
           );
 
           const isBlurry = variance < TOO_BLURRY_THRESHOLD;
@@ -115,7 +115,7 @@ export const CanvasExample = ({uri}: {uri: string}) => {
           const measured = await measureBlur(ctx, {
             width: data.width,
             height: data.height,
-            data: new Uint8ClampedArray(Object.values(data.data)),
+            data: Object.values(data.data),
           });
           setMeasured(measured);
         } catch (error) {
